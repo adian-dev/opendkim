@@ -44,6 +44,7 @@ services:
       dkim-net:
     environment:
       HOST: "postfix.localhost"
+      SELECTOR: "mailselector"
     volumes:
       - ./dkim-keys:/etc/opendkim/keys
       - ./dkim-logs:/var/log/dkim
@@ -55,5 +56,6 @@ networks:
 
 ## Environment variables
 
-+ HOST (Required): Domain name
++ HOST (Required): Domain name.
++ SELECTOR (Optional, defaults to "mail"): Selector to the dns record.
 

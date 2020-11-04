@@ -9,10 +9,12 @@ localhost
 ${HOST}
 " > /etc/opendkim/TrustedHosts
 
-echo "mail._domainkey.${HOST} ${HOST}:mail:/etc/opendkim/keys/${HOST}.private" > /etc/opendkim/KeyTable
+SELECTOR=${SELECTOR-mail}
 
-echo "*@${HOST} mail._domainkey.${HOST}" >/etc/opendkim/SigningTable 
-echo "*.${HOST} mail._domainkey.${HOST}" >>/etc/opendkim/SigningTable 
+echo "${SELECTOR}._domainkey.${HOST} ${HOST}:${SELECTOR}:/etc/opendkim/keys/${HOST}.private" > /etc/opendkim/KeyTable
+
+echo "*@${HOST} ${SELECTOR}._domainkey.${HOST}" >/etc/opendkim/SigningTable 
+echo "*.${HOST} ${SELECTOR}._domainkey.${HOST}" >>/etc/opendkim/SigningTable 
 
 if [ -f "/etc/opendkim/keys/${HOST}.txt" ]
 then
